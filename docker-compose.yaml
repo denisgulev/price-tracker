@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  backend:
+    # image: backend:latest
+    build:
+      context: ./Backend
+    ports:
+      - "5000:5000"
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - APP_CONFIG_FILE=/Backend/instance/prod_config.py
+    # depends_on:
+    #   - database
+    depends_on:
+      database:
+        condition: service_healthy
+    secrets:
+      - db-password
+
+  frontend:
+    image: frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  database:
+    image: postgres:16-bullseye
+    container_name: ps_scraper_db
+    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: scraper
+      POSTGRES_USER: postgres
+      PGUSER: postgres
+      # POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt

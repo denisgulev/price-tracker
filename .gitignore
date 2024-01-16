@@ -1,0 +1,12 @@
+auth.json
+database.db
+
+__pycache__
+__pycache__/*
+
+Notes.txt
+
+scheduler/
+
+Backend/instance/dev_config.py
+Backend/instance/prod_config.py
