@@ -63,3 +63,8 @@ docker run --rm -it -p 5000:5000 price_tracker
 cd frontend
 npm run start
 ```
+
+- Note: in alternative we can start both backend and frontend using 'docker-compose.yaml' file:
+```
+docker compose up --build
+```
