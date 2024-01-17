@@ -32,11 +32,11 @@ jobs:
         with:
           context: ./Backend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-backend:${{date 'YYYYMMDD-HHmmss' tz='Europe/Rome'}}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-backend:latest
       -
         name: Build and push frontend image
         uses: docker/build-push-action@v5
         with:
           context: ./Frontend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-frontend:${{date 'YYYYMMDD-HHmmss' tz='Europe/Rome'}}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-frontend:latest
