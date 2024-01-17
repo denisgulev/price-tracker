@@ -19,7 +19,9 @@ services:
       - db-password
 
   frontend:
-    image: frontend:latest
+    # image: frontend:latest
+    build:
+      context: ./Frontend
     ports:
       - "3000:3000"
     depends_on:
