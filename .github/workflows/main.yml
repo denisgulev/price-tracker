@@ -1,12 +1,17 @@
-name: ci
+name: Docker Images Builder
 
+# when a PR is closed on main, run the workflow
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - main
 
 jobs:
-  build:
+  if_merged:
+    # additionaly the PR must be merged, in order to execute the steps
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       -
@@ -22,16 +27,16 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
-        name: Build and push
+        name: Build and push backend image
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-backend:{date+%s}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-backend:{{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}
       -
-        name: Build and push
+        name: Build and push frontend image
         uses: docker/build-push-action@v5
         with:
           context: ./Frontend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-frontend:{date+%s}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}-frontend:{{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}
