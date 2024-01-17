@@ -13,11 +13,6 @@ SOCCAVO = "https://www.farmaciasoccavo.it"
 EFARMA = "https://www.efarma.com"
 
 URLS = {
-    # AMAZON: {
-    #     "search_field_query": 'input[name="field-keywords"]',
-    #     "search_button_query": 'input[value="Go"]',
-    #     "product_selector": "div.s-card-container"
-    # },
     LORETO: {
         "search_field_query": 'input[name="search"]',
         "search_button_query": 'button[type="button"]',
