@@ -17,7 +17,6 @@ RUN playwright install --with-deps chromium
 COPY . .
 
 # Set environment variables
-# ENV PYTHONUNBUFFERED=1
 ENV APP_CONFIG_FILE=/Backend/instance/prod_config.py
 
 # wait for the database to fully initialize
