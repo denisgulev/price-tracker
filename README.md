@@ -1,3 +1,23 @@
+# ONGOING...
+
+#### Jan 17 2024
+Setup a github workflow to create docker images and push then to dockerhub.
+The action will be triggered when a PR is successfully merged into 'main' branch.
+
+The images will have the following name structure:
+```
+${{DOCKER_USERNAME}}/tracker-backend:latest
+```
+and
+```
+${{DOCKER_USERNAME}}/tracker-frontend:latest
+```
+
+<b>NOTES</b>
+1) inside the workflow, ${{ github.repository }} was returning REPO_OWNER/REPO_NAME and that was producing and error when trying to push image to dockerhub
+2) explore methods to assign different tags to the image (either auto-generated or retrieved from this repository)
+
+
 # Project Information
 
 This project provides a user interface to interact with an automated price tracking web scraper. Currently the tracker scrapes amazon.ca, but could be configured to scrape multiple sources.
