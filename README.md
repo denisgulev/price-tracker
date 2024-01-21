@@ -1,7 +1,7 @@
 # ONGOING...
 
 #### Jan 17 2024
-Setup a github workflow to create docker images and push then to dockerhub.
+Setup a github workflow to create docker images and push then to [dockerhub](https://hub.docker.com/repositories/dman93).
 The action will be triggered when a PR is successfully merged into 'main' branch.
 
 The images will have the following name structure:
