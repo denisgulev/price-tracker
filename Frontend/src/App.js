@@ -79,16 +79,18 @@ function App() {
 
   return (
     <div className="main">
-      <h1>Cerca Prodotto</h1>
-      <form onSubmit={handleNewSearchTextSubmit}>
-        <label>Inserisci il prodotto da cercare:</label>
-        <input
-          type="text"
-          value={newSearchText}
-          onChange={handleNewSearchTextChange}
-        />
-        <button type="submit">Cerca</button>
-      </form>
+      <div style={{ textAlign: "center" }}>
+        <h1>Cerca Farmaco</h1>
+        <form onSubmit={handleNewSearchTextSubmit}>
+          <label>Inserisci il farmaco da cercare:</label>
+          <input
+            type="text"
+            value={newSearchText}
+            onChange={handleNewSearchTextChange}
+          />
+          <button type="submit">Cerca</button>
+        </form>
+      </div>
       <SearchTextList
         searchTexts={searchTexts}
         onSearchTextClick={handleSearchTextClick}

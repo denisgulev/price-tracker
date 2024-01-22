@@ -58,25 +58,37 @@ const ProductDetailsPage = ({ product }) => {
   };
 
   return (
-    <div>
-      <h2>{name}</h2>
-      <img src={img} alt="Product" style={{ width: 400 }} />
-      <p>
-        URL:{" "}
-        <a href={`${source}${productUrl}`} target="_blank" rel="noreferrer">
-          View product.
-        </a>
-      </p>
-      <p>
-        Source:{" "}
-        <a href={source} target="_blank" rel="noreferrer">
-          {source}
-        </a>
-      </p>
-      <p>Newest Price At: {createdAt}</p>
-      <h2>Price History</h2>
+    <div style={{ 
+      display: "grid",
+      gridGap: "10px",
+      gridTemplateColumns: "400px 400px",
+      gridTemplateAreas: `
+          "sidebar content"
+          "footer  footer"
+        ` }}>
+      <div style={{ gridArea: "sidebar" }}>
+        <h2>{name}</h2>
+        <img src={img} alt="Product" style={{ width: 200 }} />
+      </div>
+      <div style={{ gridArea: "content" }}>
+        <p>
+          URL:{" "}
+          <a href={`${source}${productUrl}`} target="_blank" rel="noreferrer">
+            Vedi prodotto.
+          </a>
+        </p>
+        <p>
+          Sorgente:{" "}
+          <a href={source} target="_blank" rel="noreferrer">
+            {source}
+          </a>
+        </p>
+        <p>Ultimo prezzo al: {createdAt}</p>
+      </div>
+      <div style={{ gridArea: "footer" }}>
+      <h2>Storico Prezzi</h2>
       <h3>
-        Current Price: €{prices.length > 0 ? prices[prices.length - 1] : "N/A"}
+        Prezzo attuale: €{prices.length > 0 ? prices[prices.length - 1] : "N/A"}
       </h3>
       <ApexCharts
         options={chartData.options}
@@ -84,6 +96,7 @@ const ProductDetailsPage = ({ product }) => {
         type="line"
         height={300}
       />
+      </div>
     </div>
   );
 };

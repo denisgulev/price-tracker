@@ -13,7 +13,9 @@ code {
 }
 
 .main {
+  width: 70%;
   padding: 5%;
+  margin: auto;
 }
 
 .row td {

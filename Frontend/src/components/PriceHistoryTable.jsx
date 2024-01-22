@@ -28,8 +28,8 @@ function PriceHistoryTable({ priceHistory, onClose }) {
   };
 
   return (
-    <div>
-      <h2>Storico Prezzi</h2>
+    <div style={{ width: "80%", margin: "auto" }}>
+      <h2 style={{ textAlign: "center" }}>Storico Prezzi</h2>
       <table>
         <thead>
           <tr className="row">
