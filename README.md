@@ -1,5 +1,13 @@
 # ONGOING...
 
+#### Jan 21 2024
+Added rate_limit for all endpoints, settings:
+```
+default_limits=["6 per minute, 48 per hour"]
+```
+
+
+
 #### Jan 17 2024
 Setup a github workflow to create docker images and push then to [dockerhub](https://hub.docker.com/repositories/dman93).
 The action will be triggered when a PR is successfully merged into 'main' branch.
