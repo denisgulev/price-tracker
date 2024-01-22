@@ -4,4 +4,4 @@
 wait-for-it database:5432 -t 60
 
 # Start your backend application
-python app.py
+python3.11 app.py

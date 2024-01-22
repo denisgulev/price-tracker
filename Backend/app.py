@@ -3,14 +3,19 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_cors import CORS
-
+from flask_limiter import Limiter,util
 app = Flask(__name__, instance_relative_config=True)
+limiter = Limiter( 
+    key_func=util.get_remote_address,
+    app=app,
+    default_limits=["6 per minute, 48 per hour"]
+)
+limiter.init_app(app)
 CORS(app, origins="*")
 # Load the file specified by the APP_CONFIG_FILE environment variable
 app.config.from_envvar('APP_CONFIG_FILE')
 
 db = SQLAlchemy(app)
-
 
 class ProductResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -56,7 +61,7 @@ def submit_results():
         product_result = ProductResult(
             name=result['name'],
             url=result['url'],
-            img=result["img"],
+            img=result["img"].split("?")[0],
             price=result['price'],
             search_text=search_text,
             source=source
@@ -74,6 +79,12 @@ def get_unique_search_texts():
         ProductResult.search_text).distinct().all()
     unique_search_texts = [text[0] for text in unique_search_texts]
     return jsonify(unique_search_texts)
+
+# TODO - enhance error reporting
+@app.errorhandler(429)
+def ratelimit_error(e):
+    return jsonify(error="ratelimit exceeded", message=str(e.description)), 429
+
 
 # called on selection from previous searched products
 @app.route('/results')

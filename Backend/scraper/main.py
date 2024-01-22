@@ -92,17 +92,18 @@ async def get_products(page, search_text, selector, get_product, url):
             valid_products.append(product)
 
     # async with asyncio.TaskGroup() as tg: --> TaskGroup is available from python3.11
-    for div in product_divs:
-        task = asyncio.create_task(extract_info(div))
-        await task
-        # Add task to the set. This creates a strong reference.
-        background_tasks.add(task)
-        # To prevent keeping references to finished tasks forever,
-        # make each task remove its own reference from the set after
-        # completion:
-        task.add_done_callback(background_tasks.discard)
-        # tg.create_task(task(div))
-
+    async with asyncio.TaskGroup() as tg:
+        for div in product_divs:
+            task = tg.create_task(extract_info(div))
+            # await task
+            # Add task to the set. This creates a strong reference.
+            # background_tasks.add(task)
+            # To prevent keeping references to finished tasks forever,
+            # make each task remove its own reference from the set after
+            # completion:
+            # task.add_done_callback(background_tasks.discard)
+            # tg.create_task(task(div))
+        print("All tasks in TaskGroup have completed!!")
     # print("************ valid_products *************")                print(valid_products)
 
     # print(valid_products)

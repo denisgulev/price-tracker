@@ -8,8 +8,8 @@ import TrackedProductList from "./components/TrackedProductList";
 const URL = "http://localhost:5000";
 
 const SEARCH_URLS = {
-  // SOCCAVO: "https://www.farmaciasoccavo.it",
-  LORETO: "https://farmacialoreto.it",
+  SOCCAVO: "https://www.farmaciasoccavo.it",
+  // LORETO: "https://farmacialoreto.it",
   EFARMA: "https://www.efarma.com"
 }
 

@@ -63,13 +63,13 @@ const ProductDetailsPage = ({ product }) => {
       <img src={img} alt="Product" style={{ width: 400 }} />
       <p>
         URL:{" "}
-        <a href={`${source}${productUrl}`} target="_blank">
+        <a href={`${source}${productUrl}`} target="_blank" rel="noreferrer">
           View product.
         </a>
       </p>
       <p>
         Source:{" "}
-        <a target="_blank" href={source}>
+        <a href={source} target="_blank" rel="noreferrer">
           {source}
         </a>
       </p>

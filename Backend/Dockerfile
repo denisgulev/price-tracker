@@ -1,5 +1,5 @@
 # Use the official Python image with version 3.11
-FROM python:3.9-slim-bullseye
+FROM python:3.11-slim-bullseye
 
 # Set the working directory to /main/backend
 WORKDIR /Backend
