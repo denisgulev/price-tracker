@@ -5,9 +5,7 @@ import os
 from fetch_product import get_product
 from requests import post
 from concurrent.futures import ProcessPoolExecutor
-import sys
 
-AMAZON = "https://amazon.it"
 LORETO = "https://farmacialoreto.it"
 SOCCAVO = "https://www.farmaciasoccavo.it"
 EFARMA = "https://www.efarma.com"
@@ -36,17 +34,6 @@ URLS = {
 available_urls = URLS.keys()
 
 
-# def load_auth():
-#     FILE = os.path.join("scraper", "auth.json")
-#     with open(FILE, "r") as f:
-#         return json.load(f)
-
-# # place your bright-data credentials in auth.json file with keys: "username", "password" and "host"
-# cred = load_auth()
-# auth = f'{cred["username"]}:{cred["password"]}'
-# browser_url = f'https://farmacialoreto.it'
-
-
 async def search(metadata, page, search_text):
     print(f"Searching for {search_text} on {page.url}")
     search_field_query = metadata.get("search_field_query")
@@ -54,15 +41,9 @@ async def search(metadata, page, search_text):
     search_result = metadata.get("search_result")
 
     if search_field_query and search_button_query:
-        # print("Filling input field")
         search_box = await page.wait_for_selector(search_field_query)
         await search_box.type(search_text)
         await page.keyboard.press("Enter")
-        # print("Pressing search button")
-        # print(f'Waiting for ${search_button_query} to be visible')
-        # button = await page.wait_for_selector(search_button_query)
-        # await button.click()
-        # print("Waiting for search results")
         await page.wait_for_selector(search_result)
     else:
         raise Exception("Could not search.")
@@ -72,12 +53,9 @@ async def search(metadata, page, search_text):
 
 
 async def get_products(page, search_text, selector, get_product, url):
-    # print("Retreiving products.")
     product_divs = await page.query_selector_all(selector)
     valid_products = []
     words = search_text.split(" ")
-    background_tasks = set()
-    # print(product_divs)
 
     async def extract_info(p_div):
         product = await get_product(p_div, url)
@@ -91,22 +69,11 @@ async def get_products(page, search_text, selector, get_product, url):
         else:
             valid_products.append(product)
 
-    # async with asyncio.TaskGroup() as tg: --> TaskGroup is available from python3.11
     async with asyncio.TaskGroup() as tg:
         for div in product_divs:
             task = tg.create_task(extract_info(div))
-            # await task
-            # Add task to the set. This creates a strong reference.
-            # background_tasks.add(task)
-            # To prevent keeping references to finished tasks forever,
-            # make each task remove its own reference from the set after
-            # completion:
-            # task.add_done_callback(background_tasks.discard)
-            # tg.create_task(task(div))
         print("All tasks in TaskGroup have completed!!")
-    # print("************ valid_products *************")                print(valid_products)
 
-    # print(valid_products)
     return valid_products
 
 # TODO - see where can this be used

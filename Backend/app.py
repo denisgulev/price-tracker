@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_cors import CORS
 from flask_limiter import Limiter,util
+
 app = Flask(__name__, instance_relative_config=True)
 limiter = Limiter( 
     key_func=util.get_remote_address,
@@ -52,8 +53,6 @@ class ProductResult(db.Model):
 @app.route('/results', methods=['POST'])
 def submit_results():
     results = request.json.get('data')
-    # print("****RESULTS")
-    # print(results)
     search_text = request.json.get("search_text")
     source = request.json.get("source")
 
